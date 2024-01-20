@@ -47,6 +47,7 @@ static bool    fill_game_data(t_game_data *game_d, int file)
 }
 
 // fill t_game_data structure and check if map is valid
+// return t_game_data structure if map is valid, exit otherwise
 t_game_data	*set_game_data(char *filename)
 {
 	int			i;

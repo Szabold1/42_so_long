@@ -1,5 +1,6 @@
 # include "../include/so_long.h"
 
+// fill t_data structure with initial values
 static void	fill_data(t_data *data)
 {
 	if (!data)
@@ -14,6 +15,7 @@ static void	fill_data(t_data *data)
 	data->ground_ptr = NULL;
 }
 
+// initialize mlx, window, and image
 static void	init_mlx(t_data *data, t_game_data *game_d)
 {
 	data->mlx_ptr = mlx_init();
@@ -29,6 +31,7 @@ static void	init_mlx(t_data *data, t_game_data *game_d)
 		exit_free_data(data, game_d, "Error\nFailed to create image\n");
 }
 
+// load a texture from a file (path) into img
 static void	load_texture(t_data *data, t_game_data *game_d, t_img *img, char *path)
 {
 	img->img_ptr = mlx_xpm_file_to_image(data->mlx_ptr, path,
@@ -37,6 +40,7 @@ static void	load_texture(t_data *data, t_game_data *game_d, t_img *img, char *pa
 		exit_free_data(data, game_d, "Error\nFailed to load texture\n");
 }
 
+// load textures from files (path) into t_data structure
 static void	init_textures(t_data *data, t_game_data *game_d)
 {
 	load_texture(data, game_d, data->player_ptr, PLAYER_PATH);
@@ -46,6 +50,8 @@ static void	init_textures(t_data *data, t_game_data *game_d)
 	load_texture(data, game_d, data->ground_ptr, GROUND_PATH);
 }
 
+// fill t_data structure and initialize graphics (mlx and textures)
+// return t_data structure if successful, exit otherwise
 t_data	*set_graphics_data(t_game_data *game_d)
 {
 	t_data	*data;
