@@ -6,32 +6,44 @@
 // E for a map exit,
 // P for the player’s starting position.
 
+// count the number of rows in the map (2D array) and return it
+int	get_nb_rows(char **map)
+{
+	int	row;
+
+	row = 0;
+	while (map[row])
+		row++;
+	return (row);
+}
+
 // check if map is rectangular and closed/surrounded by walls
-// also set the number of rows and columns in t_map_data
+// also set the number of rows and columns in t_game_data
 // return true if all conditions are met, false otherwise
-bool	check_rect_walls(t_game_data *game_d, int i, int j)
+bool	check_rect_walls(t_game_data *game_d, int row, int col)
 {
 	int	len;
+	int	nb_rows;
 
 	if (game_d->map[0] == NULL)
 		return (false);
 	len = ft_strlen(game_d->map[0]);
-	while (game_d->map[i])
+	nb_rows = get_nb_rows(game_d->map);
+	while (game_d->map[row])
 	{
-		while (game_d->map[i][j])
+		while (game_d->map[row][col])
 		{
-			if ((i == 0 || j == 0 || j == len - 1 || !game_d->map[i + 1]
-				|| game_d->map[i + 1][0] == '\0')
-				&& (game_d->map[i][j] != '1'))
+			if ((row == 0 || col == 0 || col == len - 1 || row == nb_rows - 1)
+				&& (game_d->map[row][col] != '1'))
 				return (false);
-			j++;
+			col++;
 		}
-		if (j != len)
+		if (col != len)
 			return (false);
-		i++;
+		row++;
 	}
-	game_d->rows = i;
-	game_d->cols = j;
+	game_d->rows = row;
+	game_d->cols = col;
 	return (true);
 }
 
@@ -54,7 +66,7 @@ static bool	dfs_check_path(t_game_data *game_d, int row, int col,
 		exit = true;
 	else if (game_d->map[row][col] == 'C')
 		collect--;
-	if (exit && collect == 0)
+	if (exit && (collect == 0))
 		return (true);
 	return (dfs_check_path(game_d, row - 1, col, visited)
 		|| dfs_check_path(game_d, row + 1, col, visited)

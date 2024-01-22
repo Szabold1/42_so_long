@@ -20,8 +20,17 @@ int	main(int argc, char *argv[])
 	t_game_data	*game_d;
 	t_data		*data;
 
+	game_d = NULL;
+	data = NULL;
 	if (!check_args(argc, argv))
-		exit_free_game_data(game_d, "Error\nInvalid arguments\n");
-	game_d = set_game_data(argv[1]);
+		exit_error("Error\nInvalid arguments\n");
+	game_d = set_game_data(argv[1], data);
 	data = set_graphics_data(game_d);
+	draw_map(game_d, data);
+	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, handle_keypress, data);
+	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, data);
+	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask,
+				handle_destroy, data);
+	mlx_loop(data->mlx_ptr);
+	exit_free(data, game_d, "");
 }
