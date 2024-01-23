@@ -21,6 +21,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
 
 // Linked list structure
 typedef struct s_list
@@ -86,5 +87,17 @@ char	*handle_read(int fd, char *str);
 char	*get_line(char *str);
 char	*handle_rest(char *str);
 char	*get_next_line(int fd);
+
+// ft_printf functions
+// File: ft_printf.c
+int		ft_printf(const char *str, ...);
+// File: ft_printf_utils.c
+int		print_char(int c);
+int		print_str(char *str);
+int		print_int(int n);
+int		print_uint(unsigned int n);
+// File: ft_printf_utils2.c
+int		print_hex(unsigned long long n, char c);
+int		print_ptr(void *ptr);
 
 #endif

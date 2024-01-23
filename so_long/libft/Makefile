@@ -5,6 +5,7 @@ NAME = libft.a
 SRC_DIR = ./src
 SRC_BONUS_DIR = $(SRC_DIR)/bonus
 SRC_GNL_DIR = $(SRC_DIR)/get_next_line
+SRC_PRINTF_DIR = $(SRC_DIR)/ft_printf
 
 # Compiler and flags
 CC = cc
@@ -65,10 +66,15 @@ SRC_BONUS = ft_lstadd_back.c \
 SRC_GNL = get_next_line_utils.c \
           get_next_line.c
 
+SRC_PRINTF = ft_printf_utils.c \
+            ft_printf_utils2.c \
+            ft_printf.c
+
 # Object files
 OBJ = $(SRC:%.c=$(SRC_DIR)/%.o)
 OBJ_BONUS = $(SRC_BONUS:%.c=$(SRC_BONUS_DIR)/%.o)
 OBJ_GNL = $(SRC_GNL:%.c=$(SRC_GNL_DIR)/%.o)
+OBJ_PRINTF = $(SRC_PRINTF:%.c=$(SRC_PRINTF_DIR)/%.o)
 
 # Default target
 all: $(NAME)
@@ -83,7 +89,7 @@ $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
 
 # Clean up object files
 clean:
-	$(RM) $(OBJ) $(OBJ_BONUS) $(OBJ_GNL)
+	$(RM) $(OBJ) $(OBJ_BONUS) $(OBJ_GNL) $(OBJ_PRINTF)
 
 # Remove all generated files
 fclean: clean
@@ -96,9 +102,9 @@ re: fclean all
 bonus: all $(OBJ_BONUS)
 	$(AR) $(NAME) $(OBJ_BONUS)
 
-# Build everything (bonus and get_next_line)
-every: bonus $(OBJ_GNL)
-	$(AR) $(NAME) $(OBJ_BONUS) $(OBJ_GNL)
+# Build everything (bonus, get_next_line, ft_printf)
+every: bonus $(OBJ_GNL) $(OBJ_PRINTF)
+	$(AR) $(NAME) $(OBJ_BONUS) $(OBJ_GNL) $(OBJ_PRINTF)
 
 # Declare phony targets
 .PHONY: all clean fclean re bonus every
