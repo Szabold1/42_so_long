@@ -7,7 +7,7 @@
 // P for the player’s starting position.
 
 // count the number of rows in the map (2D array) and return it
-int	get_nb_rows(char **map)
+static int	get_nb_rows(char **map)
 {
 	int	row;
 
@@ -34,7 +34,7 @@ bool	check_rect_walls(t_game_data *game_d, int row, int col)
 		while (game_d->map[row][col])
 		{
 			if ((row == 0 || col == 0 || col == len - 1 || row == nb_rows - 1)
-				&& (game_d->map[row][col] != '1'))
+				&& (game_d->map[row][col] != WALL))
 				return (false);
 			col++;
 		}
@@ -59,12 +59,12 @@ static bool	dfs_check_path(t_game_data *game_d, int row, int col,
 	exit = false;
 	collect = game_d->collect;
 	if (row < 0 || col < 0 || row >= game_d->rows || col >= game_d->cols
-		|| visited[row][col] == 1 || game_d->map[row][col] == '1')
+		|| visited[row][col] == 1 || game_d->map[row][col] == WALL)
 		return (false);
 	visited[row][col] = 1;
-	if (game_d->map[row][col] == 'E')
+	if (game_d->map[row][col] == EXIT)
 		exit = true;
-	else if (game_d->map[row][col] == 'C')
+	else if (game_d->map[row][col] == COLLECTIBLE)
 		collect--;
 	if (exit && (collect == 0))
 		return (true);
@@ -78,10 +78,11 @@ static bool	dfs_check_path(t_game_data *game_d, int row, int col,
 // return true if the starting position is set, false otherwise
 static bool	set_start_pos(t_game_data *game_d, int row, int col)
 {
-	if (game_d->player_row != -1 || game_d->player_col != -1)
+	if (game_d->player_curr_x != -1 || game_d->player_curr_y != -1)
 		return (false);
-	game_d->player_row = row;
-	game_d->player_col = col;
+	game_d->player_curr_y = row;
+	game_d->player_curr_x = col;
+	game_d->map[row][col] = PLAYER;
 	return (true);
 }
 
@@ -99,19 +100,19 @@ bool	check_elements_path(t_game_data *game_d, int i, int j)
 	{
 		while (game_d->map[i][j])
 		{
-			if (game_d->map[i][j] == 'C')
+			if (game_d->map[i][j] == COLLECTIBLE)
 				game_d->collect++;
-			else if (game_d->map[i][j] == 'E')
+			else if (game_d->map[i][j] == EXIT)
 				game_d->exit++;
 			else if (game_d->map[i][j] == 'P' && set_start_pos(game_d, i, j))
 				game_d->start++;
-			else if (game_d->map[i][j] != '0' && game_d->map[i][j] != '1')
+			else if (game_d->map[i][j] != GROUND && game_d->map[i][j] != WALL)
 				return (false);
 			j++;
 		}
 		i++;
 	}
-	if (!dfs_check_path(game_d, game_d->player_row, game_d->player_col,
+	if (!dfs_check_path(game_d, game_d->player_curr_y, game_d->player_curr_x,
 			visited))
 		return (false);
 	if (game_d->collect < 1 || game_d->exit != 1 || game_d->start != 1)

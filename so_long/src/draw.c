@@ -43,6 +43,24 @@ static void	draw_cell(t_img *img_dest, t_img *img_src, int row, int col)
 	}
 }
 
+// draw a cell to the image (data->img_ptr) using the textures from t_data
+void	handle_draw_cell(t_data *data, int row, int col)
+{
+	t_game_data	*game_d;
+
+	game_d = data->game_d;
+	if (game_d->map[row][col] == WALL)
+		draw_cell(data->img_ptr, data->wall_ptr, row, col);
+	else if (game_d->map[row][col] == GROUND)
+		draw_cell(data->img_ptr, data->ground_ptr, row, col);
+	else if (game_d->map[row][col] == COLLECTIBLE)
+		draw_cell(data->img_ptr, data->collect_ptr, row, col);
+	else if (game_d->map[row][col] == EXIT)
+		draw_cell(data->img_ptr, data->exit_ptr, row, col);
+	else if (game_d->map[row][col] == PLAYER)
+		draw_cell(data->img_ptr, data->player_ptr, row, col);
+}
+
 // draw the map to the image (data->img_ptr) using the textures from t_data
 void	draw_map(t_game_data *game_d, t_data *data)
 {
@@ -54,20 +72,9 @@ void	draw_map(t_game_data *game_d, t_data *data)
 	{
 		col = 0;
 		while (col < game_d->cols)
-		{
-			if (game_d->map[row][col] == '1')
-				draw_cell(data->img_ptr, data->wall_ptr, row, col);
-			else if (game_d->map[row][col] == '0')
-				draw_cell(data->img_ptr, data->ground_ptr, row, col);
-			else if (game_d->map[row][col] == 'C')
-				draw_cell(data->img_ptr, data->collect_ptr, row, col);
-			else if (game_d->map[row][col] == 'E')
-				draw_cell(data->img_ptr, data->exit_ptr, row, col);
-			else if (game_d->map[row][col] == 'P')
-				draw_cell(data->img_ptr, data->player_ptr, row, col);
-			col++;
-		}
+			handle_draw_cell(data, row, col++);
 		row++;
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->img_ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
+							data->img_ptr->ptr, 0, 0);
 }

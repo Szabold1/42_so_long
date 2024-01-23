@@ -38,8 +38,8 @@ static bool    fill_game_data(t_game_data *game_d, int file)
     game_d->collect = 0;
     game_d->exit = 0;
     game_d->start = 0;
-	game_d->player_row = -1;
-	game_d->player_col = -1;
+	game_d->player_curr_x = -1;
+	game_d->player_curr_y = -1;
 	game_d->moves = 0;
     if (!create_map(game_d, file))
 		return (false);
@@ -48,30 +48,26 @@ static bool    fill_game_data(t_game_data *game_d, int file)
 
 // fill t_game_data structure and check if map is valid
 // return t_game_data structure if map is valid, exit otherwise
-t_game_data	*set_game_data(char *filename, t_data *data)
+t_game_data	*set_game_data(char *filename, t_data *data, t_game_data *game_d)
 {
 	int			i;
 	int			j;
-	t_game_data	*game_d;
 	int			file;
 
 	i = 0;
 	j = 0;
-	game_d = (t_game_data *)malloc(sizeof(t_game_data));
-	if (game_d == NULL)
-		exit_error("Error\nmalloc returned NULL\n");
 	file = open(filename, O_RDONLY);
 	if (file == -1)
-		exit_free(data, game_d, "Error\nFile opening failed\n");
+		exit_free(data, "Error\nFile opening failed\n");
 	if (!fill_game_data(game_d, file)
 		|| !check_rect_walls(game_d->map, i, j)
 		|| !check_elements_path(game_d, i, j))
 	{
 		if (close(file) == -1)
-			exit_free(data, game_d, "Error\nFile closing failed\n");
-		exit_free(data, game_d, "Error\nInvalid map\n");
+			exit_free(data, "Error\nFile closing failed\n");
+		exit_free(data, "Error\nInvalid map\n");
 	}
 	if (close(file) == -1)
-		exit_free(data, game_d, "Error\nFile closing failed\n");
+		exit_free(data, "Error\nFile closing failed\n");
 	return (game_d);
 }

@@ -15,22 +15,30 @@ static bool	check_args(int argc, char *argv[])
 	return (true);
 }
 
+// 1. allocate memory for data structures
+// 2. check the arguments
+// 3. check if map is valid and get data about the map
+// 4. initialize mlx, window, image, data about the image, and textures
+// 4. draw the map to the image
+// 5. set up event handlers and start the game loop
 int	main(int argc, char *argv[])
 {
 	t_game_data	*game_d;
 	t_data		*data;
 
-	game_d = NULL;
-	data = NULL;
+	data = (t_data *)malloc(sizeof(t_data));
+	if (data == NULL)
+		exit_error("Error\nmalloc returned NULL\n");
+	game_d = (t_game_data *)malloc(sizeof(t_game_data));
+	if (game_d == NULL)
+		exit_free(data, "Error\nmalloc returned NULL\n");
 	if (!check_args(argc, argv))
-		exit_error("Error\nInvalid arguments\n");
-	game_d = set_game_data(argv[1], data);
-	data = set_graphics_data(game_d);
+		exit_free(data, "Error\nInvalid arguments\n");
+	game_d = set_game_data(argv[1], data, game_d);
+	data = set_graphics_data(data);
 	draw_map(game_d, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, handle_keypress, data);
-	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, handle_keyrelease, data);
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask,
 				handle_destroy, data);
 	mlx_loop(data->mlx_ptr);
-	exit_free(data, game_d, "");
 }

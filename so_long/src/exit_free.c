@@ -41,8 +41,8 @@ static void	exit_free_texture(t_img *texture, void *mlx_ptr, char *err_msg)
 		
 }
 
-// free t_data structure and exit if 'err_msg' is not an empty string
-static void	exit_free_data(t_data *data, char *err_msg)
+// free all the data structures and exit if 'err_msg' is not an empty string
+void	exit_free(t_data *data, char *err_msg)
 {
 	if (data)
 	{
@@ -53,24 +53,27 @@ static void	exit_free_data(t_data *data, char *err_msg)
 		}
 		if (data->win_ptr)
 			mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		exit_free_texture(data->img_ptr, data->mlx_ptr, "");
-		exit_free_texture(data->player_ptr, data->mlx_ptr, "");
-		exit_free_texture(data->exit_ptr, data->mlx_ptr, "");
-		exit_free_texture(data->collect_ptr, data->mlx_ptr, "");
-		exit_free_texture(data->wall_ptr, data->mlx_ptr, "");
-		exit_free_texture(data->ground_ptr, data->mlx_ptr, "");
+		exit_free_texture(data->img_ptr, data->mlx_ptr, NULL);
+		exit_free_texture(data->player_ptr, data->mlx_ptr, NULL);
+		exit_free_texture(data->exit_ptr, data->mlx_ptr, NULL);
+		exit_free_texture(data->collect_ptr, data->mlx_ptr, NULL);
+		exit_free_texture(data->wall_ptr, data->mlx_ptr, NULL);
+		exit_free_texture(data->ground_ptr, data->mlx_ptr, NULL);
+		exit_free_game_data(data->game_d, NULL);
 		free(data);
 	}
 	if (err_msg)
 		exit_error(err_msg);
 }
 
-// free t_game_data and t_data structures,
-// and exit if 'err_msg' is not an empty string
-void	exit_free(t_data *data, t_game_data *game_d, char *err_msg)
+// end the game and free all allocated memory
+// 'msg' is the message to be printed before exiting
+void	end_game(t_data *data, char *msg)
 {
-	exit_free_data(data, "");
-	exit_free_game_data(game_d, "");
-	if (err_msg)
-		exit_error(err_msg);
+    exit_free(data, NULL);
+	if (msg)
+    	ft_printf("%s\nNumber of movements: %d\n", msg, data->game_d->moves);
+	else
+		ft_printf("Number of movements: %d\n", data->game_d->moves);
+    exit(0);
 }
