@@ -15,16 +15,16 @@
 // 1. check if number of arguments matches
 // 2. check if file extension is .ber
 // return true if both conditions are met, false otherwise
-static bool	check_args(int argc, char *argv[])
+static void	check_args(int argc, char *argv[])
 {
 	int	len;
 
+	len = 0;
 	if (argc != 2)
-		return (false);
+		exit_error("Invalid number of arguments");
 	len = ft_strlen(argv[1]);
 	if (ft_strncmp(argv[1] + len - 4, ".ber", 4) != 0)
-		return (false);
-	return (true);
+		exit_error("Invalid file extension");
 }
 
 // 1. allocate memory for data structures
@@ -35,17 +35,18 @@ static bool	check_args(int argc, char *argv[])
 // 5. set up event handlers and start the game loop
 int	main(int argc, char *argv[])
 {
-	t_game_data	*game_d;
 	t_data		*data;
+	t_game_data	*game_d;
 
+	data = NULL;
+	game_d = NULL;
+	check_args(argc, argv);
 	data = (t_data *)malloc(sizeof(t_data));
 	if (data == NULL)
-		exit_error("Error\nmalloc returned NULL\n");
+		exit_error("malloc returned NULL");
 	game_d = (t_game_data *)malloc(sizeof(t_game_data));
 	if (game_d == NULL)
-		exit_free(data, "Error\nmalloc returned NULL\n");
-	if (!check_args(argc, argv))
-		exit_free(data, "Error\nInvalid arguments\n");
+		exit_free(data, "malloc returned NULL");
 	game_d = set_game_data(argv[1], data, game_d);
 	data = set_graphics_data(data);
 	draw_map(game_d, data);

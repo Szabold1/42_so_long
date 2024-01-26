@@ -30,6 +30,7 @@ static bool	create_map(t_game_data *game_d, int file)
 		free(line);
 		line = get_next_line(file);
 	}
+	free(line);
 	game_d->map = ft_split(map_str, '\n');
 	if (game_d->map == NULL)
 	{
@@ -70,16 +71,16 @@ t_game_data	*set_game_data(char *filename, t_data *data, t_game_data *game_d)
 	j = 0;
 	file = open(filename, O_RDONLY);
 	if (file == -1)
-		exit_free(data, "Error\nFile opening failed\n");
+		exit_free(data, "File opening failed");
 	if (!fill_game_data(game_d, file)
 		|| !check_rect_walls(game_d, i, j)
 		|| !check_elements_path(game_d, i, j))
 	{
 		if (close(file) == -1)
-			exit_free(data, "Error\nFile closing failed\n");
-		exit_free(data, "Error\nInvalid map\n");
+			exit_free(data, "File closing failed");
+		exit_free(data, "Invalid map");
 	}
 	if (close(file) == -1)
-		exit_free(data, "Error\nFile closing failed\n");
+		exit_free(data, "File closing failed");
 	return (game_d);
 }

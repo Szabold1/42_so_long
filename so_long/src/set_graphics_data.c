@@ -16,7 +16,7 @@
 static void	fill_data(t_data *data)
 {
 	if (!data)
-		exit_free(data, "Error\nfill_data() received NULL pointer\n");
+		exit_free(data, "fill_data() received NULL pointer");
 	data->mlx_ptr = NULL;
 	data->win_ptr = NULL;
 	data->img_ptr = NULL;
@@ -32,23 +32,23 @@ static void	init_mlx(t_data *data, t_game_data *game_d)
 {
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
-		exit_free(data, "Error\nFailed to initialize mlx\n");
+		exit_free(data, "Failed to initialize mlx");
 	data->win_ptr = mlx_new_window(data->mlx_ptr, game_d->cols * CELL_SIZE,
 			game_d->rows * CELL_SIZE, "so_long");
 	if (!data->win_ptr)
-		exit_free(data, "Error\nFailed to create window\n");
+		exit_free(data, "Failed to create window");
 	data->img_ptr = (t_img *)malloc(sizeof(t_img));
 	if (!data->img_ptr)
-		exit_free(data, "Error\nmalloc returned NULL\n");
+		exit_free(data, "malloc returned NULL");
 	data->img_ptr->ptr = mlx_new_image(data->mlx_ptr,
 			game_d->cols * CELL_SIZE, game_d->rows * CELL_SIZE);
 	if (!data->img_ptr->ptr)
-		exit_free(data, "Error\nFailed to create image\n");
+		exit_free(data, "Failed to create image");
 	data->img_ptr->addr = mlx_get_data_addr(data->img_ptr->ptr,
 			&data->img_ptr->bits_per_pixel,
 			&data->img_ptr->line_len, &data->img_ptr->endian);
 	if (!data->img_ptr->addr)
-		exit_free(data, "Error\nFailed to get image address\n");
+		exit_free(data, "Failed to get image address");
 }
 
 // load a texture from a file (path) into img
@@ -56,15 +56,15 @@ static void	load_texture(t_data *data, t_img **img, char *path)
 {
 	*img = (t_img *)malloc(sizeof(t_img));
 	if (!(*img))
-		exit_free(data, "Error\nmalloc returned NULL\n");
+		exit_free(data, "malloc returned NULL");
 	(*img)->ptr = mlx_xpm_file_to_image(data->mlx_ptr, path,
 			&(*img)->width, &(*img)->height);
 	if (!(*img)->ptr)
-		exit_free(data, "Error\nFailed to load texture\n");
+		exit_free(data, "Failed to load texture");
 	(*img)->addr = mlx_get_data_addr((*img)->ptr, &(*img)->bits_per_pixel,
 			&(*img)->line_len, &(*img)->endian);
 	if (!(*img)->addr)
-		exit_free(data, "Error\nFailed to get texture address\n");
+		exit_free(data, "Failed to get texture address");
 }
 
 // load textures from files (path) into t_data structure

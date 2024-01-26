@@ -15,7 +15,7 @@
 // print error message with perror() and exit
 void	exit_error(char *err_msg)
 {
-	perror(err_msg);
+	ft_printf_fd(2, "Error\n%s\n", err_msg);
 	exit(EXIT_FAILURE);
 }
 
