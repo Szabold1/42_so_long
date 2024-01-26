@@ -1,4 +1,16 @@
-# include "../include/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   handle_events.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 11:22:07 by bszabo            #+#    #+#             */
+/*   Updated: 2024/01/26 11:22:19 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/so_long.h"
 
 // refresh the screen by redrawing player cell and cells around it
 // and put the image to the window
@@ -23,8 +35,11 @@ static void	refresh_screen(t_data *data)
 // if the key pressed is ESC, exit the program
 // if the key pressed is an arrow key, move the player
 // refresh the screen after every event
-void	handle_keypress(int keycode, t_data *data)
+int	handle_keypress(int keycode, void *param)
 {
+	t_data	*data;
+
+	data = (t_data *)param;
 	if (keycode == KEY_ESC)
 		end_game(data, NULL);
 	else if (keycode == KEY_UP_ARROW)
@@ -36,10 +51,15 @@ void	handle_keypress(int keycode, t_data *data)
 	else if (keycode == KEY_RIGHT_ARROW)
 		move_player(data, 1, 0);
 	refresh_screen(data);
+	return (0);
 }
 
 // handle DestroyNotify events
-void	handle_destroy(t_data *data)
+int	handle_destroy(void *param)
 {
+	t_data	*data;
+
+	data = (t_data *)param;
 	end_game(data, NULL);
+	return (0);
 }

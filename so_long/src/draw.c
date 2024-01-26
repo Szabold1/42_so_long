@@ -1,4 +1,16 @@
-# include "../include/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 11:21:37 by bszabo            #+#    #+#             */
+/*   Updated: 2024/01/26 11:21:43 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/so_long.h"
 
 // get the color of a pixel from the 'img' at (x, y)
 // return the color as an unsigned int
@@ -76,5 +88,5 @@ void	draw_map(t_game_data *game_d, t_data *data)
 		row++;
 	}
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-							data->img_ptr->ptr, 0, 0);
+		data->img_ptr->ptr, 0, 0);
 }

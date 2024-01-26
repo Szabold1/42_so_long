@@ -1,12 +1,21 @@
-# include "../include/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_player.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 11:22:40 by bszabo            #+#    #+#             */
+/*   Updated: 2024/01/26 11:22:45 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/so_long.h"
 
 // check if moving to the new position is valid
 // return true if the new position is valid and false otherwise
-static bool	is_valid_move(t_data *data, int x, int y)
+static bool	is_valid_move(t_game_data *game_d, int x, int y)
 {
-	t_game_data	*game_d;
-
-	game_d = data->game_d;
 	if (x < 0 || y < 0 || x >= game_d->cols || y >= game_d->rows)
 		return (false);
 	else if (game_d->map[y][x] == WALL)
@@ -14,6 +23,7 @@ static bool	is_valid_move(t_data *data, int x, int y)
 	else if (game_d->map[y][x] == GROUND || game_d->map[y][x] == COLLECTIBLE
 			|| game_d->map[y][x] == EXIT)
 		return (true);
+	return (false);
 }
 
 // update the necessary data when the player moves to a new position
@@ -46,7 +56,7 @@ static void	update_data(t_data *data, int x, int y)
 // x and y are the relative coordinates of the new position
 void	move_player(t_data *data, int x, int y)
 {
-    int	new_x;
+	int	new_x;
 	int	new_y;
 
 	new_x = data->game_d->player_curr_x + x;

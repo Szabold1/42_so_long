@@ -10,16 +10,19 @@ NAME = so_long
 # File and Directory Management
 RM = rm -f
 LIBFT_DIR = ./libft
-LIBFT = $(LIBFT_DIR)/libft.a
-LIBS = -L$(LIBFT_DIR) -lft
+LIBFT = $(LIBFT_DIR)/libft_full.a
+LIBS = -L$(LIBFT_DIR) -lft_full -lmlx -lXext -lX11
 
 # Source Directories
 SRC_DIR = ./src
 
 # Source Files
 SRC = check_map.c \
-		error.c \
+		draw.c \
+		exit_free.c \
+		handle_events.c \
 		main.c \
+		move_player.c \
 		set_game_data.c \
 		set_graphics_data.c
 
@@ -36,7 +39,7 @@ $(NAME): $(LIBFT) $(OBJ)
 
 # Library Compilation
 $(LIBFT): $(LIBFT_DIR)
-	cd $(LIBFT_DIR) && $(MAKE)
+	cd $(LIBFT_DIR) && $(MAKE) full
 
 # Phony Targets
 all: $(NAME)

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exit_free.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 11:21:52 by bszabo            #+#    #+#             */
+/*   Updated: 2024/01/26 11:21:54 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 // print error message with perror() and exit
@@ -10,9 +22,9 @@ void	exit_error(char *err_msg)
 // free t_game_data structure and exit if 'err_msg' is not an empty string
 static void	exit_free_game_data(t_game_data *game_d, char *err_msg)
 {
-    int	i;
+	int	i;
 
-    i = 0;
+	i = 0;
 	if (game_d)
 	{
 		while (game_d->map && game_d->map[i])
@@ -24,21 +36,20 @@ static void	exit_free_game_data(t_game_data *game_d, char *err_msg)
 		free(game_d);
 	}
 	if (err_msg)
-    	exit_error(err_msg);
+		exit_error(err_msg);
 }
 
 // free t_img structure
 static void	exit_free_texture(t_img *texture, void *mlx_ptr, char *err_msg)
 {
-    if (texture)
-    {
-        if (texture->ptr)
-            mlx_destroy_image(mlx_ptr, texture->ptr);
-        free(texture);
-    }
+	if (texture)
+	{
+		if (texture->ptr)
+			mlx_destroy_image(mlx_ptr, texture->ptr);
+		free(texture);
+	}
 	if (err_msg)
 		exit_error(err_msg);
-		
 }
 
 // free all the data structures and exit if 'err_msg' is not an empty string
@@ -70,10 +81,10 @@ void	exit_free(t_data *data, char *err_msg)
 // 'msg' is the message to be printed before exiting
 void	end_game(t_data *data, char *msg)
 {
-    exit_free(data, NULL);
+	exit_free(data, NULL);
 	if (msg)
-    	ft_printf("%s\nNumber of movements: %d\n", msg, data->game_d->moves);
+		ft_printf("%s\nNumber of movements: %d\n", msg, data->game_d->moves);
 	else
 		ft_printf("Number of movements: %d\n", data->game_d->moves);
-    exit(0);
+	exit(0);
 }

@@ -1,4 +1,16 @@
-# include "../include/so_long.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 11:22:29 by bszabo            #+#    #+#             */
+/*   Updated: 2024/01/26 11:22:32 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/so_long.h"
 
 // 1. check if number of arguments matches
 // 2. check if file extension is .ber
@@ -39,6 +51,6 @@ int	main(int argc, char *argv[])
 	draw_map(game_d, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, handle_keypress, data);
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask,
-				handle_destroy, data);
+		handle_destroy, data);
 	mlx_loop(data->mlx_ptr);
 }

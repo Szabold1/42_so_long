@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 11:20:47 by bszabo            #+#    #+#             */
+/*   Updated: 2024/01/26 11:20:53 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -15,17 +27,24 @@
 # define WALL '1'
 # define GROUND '0'
 
+# define KEY_ESC 0xff1b
+# define KEY_UP_ARROW 0xff52
+# define KEY_DOWN_ARROW 0xff54
+# define KEY_LEFT_ARROW 0xff51
+# define KEY_RIGHT_ARROW 0xff53
+
 # include "../libft/include/libft.h"
-// # include <mlx.h>
-// #include <X11/X.h>
-// #include <X11/keysym.h>
+# include <mlx.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <stdbool.h>
 # include <stdio.h>
 
 // structure for holding data related to the game
-typedef struct s_game_data {
+typedef struct s_game_data
+{
 	char	**map;
 	int		rows;
 	int		cols;
@@ -38,7 +57,8 @@ typedef struct s_game_data {
 }	t_game_data;
 
 // structure for holding data related to an image
-typedef struct s_img {
+typedef struct s_img
+{
 	void	*ptr;
 	char	*addr;
 	int		width;
@@ -49,7 +69,8 @@ typedef struct s_img {
 }	t_img;
 
 // structure for holding all data related to the game
-typedef struct s_data {
+typedef struct s_data
+{
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_img		*img_ptr;
@@ -78,8 +99,8 @@ void		exit_free(t_data *data, char *err_msg);
 void		end_game(t_data *data, char *msg);
 
 // File: handle_events.c
-void		handle_keypress(int keycode, t_data *data);
-void		handle_destroy(t_data *data);
+int			handle_keypress(int keycode, void *param);
+int			handle_destroy(void *param);
 
 // File: move_player.c
 void		move_player(t_data *data, int x, int y);
