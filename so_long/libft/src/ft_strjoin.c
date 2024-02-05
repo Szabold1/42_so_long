@@ -12,35 +12,40 @@
 
 #include "../include/libft.h"
 
-// join strings 's1' and 's2' into a new string with malloc
-// return pointer to new string
-char	*ft_strjoin(char const *s1, char const *s2)
+// check if s1 and s2 are valid
+// return 0 if valid, otherwise return -1
+static int	check_strs(char *s1, char *s2)
 {
-	char	*s_final;
-	int		s_len;
+	if (s1 == NULL)
+		return (-1);
+	if (s2 == NULL)
+		return (-1);
+	return (0);
+}
+
+// join s1 and s2 into a new string with malloc and return it
+char	*ft_strjoin(char *s1, char *s2)
+{
 	int		i;
 	int		j;
+	char	*s_final;
 
-	i = 0;
+	i = -1;
 	j = 0;
-	s_len = (int)(ft_strlen(s1) + ft_strlen(s2));
-	s_final = (char *)malloc(s_len + 1);
+	if (check_strs(s1, s2) == -1)
+		return (NULL);
+	s_final = (char *)malloc(((ft_strlen(s1) + ft_strlen(s2)) + 1)
+			* sizeof(char));
 	if (s_final == NULL)
 		return (NULL);
-	while (s1[i])
-	{
+	while (s1[++i])
 		s_final[i] = s1[i];
-		i++;
-	}
 	while (s2[j])
-	{
-		s_final[i] = s2[j];
-		i++;
-		j++;
-	}
+		s_final[i++] = s2[j++];
 	s_final[i] = '\0';
 	return (s_final);
 }
+
 /*
 #include <stdio.h>
 int main(void)
