@@ -5,6 +5,7 @@
 typedef struct s_game_data
 {
 	char	**map;
+	int		**map_visited;
 	int		rows;
 	int		cols;
 	int		collectible;

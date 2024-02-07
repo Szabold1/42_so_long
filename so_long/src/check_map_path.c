@@ -3,7 +3,7 @@
 // (depth-first search)
 // return 0 if there's a valid path, -1 otherwise
 static int	dfs_check_path(t_game_data *game_d, int row, int col,
-					int visited[game_d->rows][game_d->cols])
+					int **visited)
 {
 	static bool	exit;
 	static int	collect;
@@ -30,11 +30,8 @@ static int	dfs_check_path(t_game_data *game_d, int row, int col,
 // return 0 if there's a valid path, -1 otherwise
 int	check_path(t_game_data *game_d)
 {
-	int	**visited;
-
-	ft_memset(visited, 0, sizeof(visited));
 	if (dfs_check_path(game_d, game_d->player_curr_y,
-			game_d->player_curr_x, visited) == -1)
+			game_d->player_curr_x, game_d->map_visited) == -1)
 		return (err_msg("no valid path in the map"), -1);
 	return (0);
 }

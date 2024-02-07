@@ -26,6 +26,7 @@ static void	init_textures(t_data *data)
 static void	init_game_data(t_game_data *game_d)
 {
 	game_d->map = NULL;
+	game_d->map_visited = NULL;
 	game_d->rows = 0;
 	game_d->cols = 0;
 	game_d->collectible = 0;

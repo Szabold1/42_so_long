@@ -91,6 +91,11 @@ void	clean_up(t_data *data)
 				free_array(data->game_d->map);
 				data->game_d->map = NULL;
 			}
+			if (data->game_d->map_visited)
+			{
+				free_array(data->game_d->map_visited);
+				data->game_d->map_visited = NULL;
+			}
 			free(data->game_d);
 			data->game_d = NULL;
 		}

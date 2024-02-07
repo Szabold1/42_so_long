@@ -12,6 +12,30 @@
 
 #include "../include/so_long.h"
 
+// create map_visited array which we will need to check path in the map
+// if successful, return 0, otherwise return -1
+static int	create_map_visited(t_game_data *game_d, char *map_str)
+{
+	int	row;
+	int	col;
+
+	game_d->map_visited = ft_split(map_str, '\n');
+	if (game_d->map_visited == NULL)
+		return (-1);
+	row = 0;
+	while (game_d->map_visited[row])
+	{
+		col = 0;
+		while (game_d->map_visited[row][col])
+		{
+			game_d->map_visited[row][col] = 0;
+			col++;
+		}
+		row++;
+	}
+	return (0);
+}
+
 // create a string 'map_str' from the map,
 // and split it by new lines into an array of strings 'game_d->map'
 // if successful, return 0, otherwise return -1
@@ -35,6 +59,8 @@ static int	create_map(t_game_data *game_d, int map_fd)
 	free(line);
 	game_d->map = ft_split(map_str, '\n');
 	if (game_d->map == NULL)
+		return (free(map_str), -1);
+	if (create_map_visited(game_d, map_str) == -1)
 		return (free(map_str), -1);
 	free(map_str);
 	return (0);
