@@ -4,21 +4,21 @@
 // return 0 if successful, -1 otherwise
 static int	init_memory_textures(t_data *data)
 {
-	data->player_img = (t_img *)malloc(sizeof(t_img));
-	if (!data->player_img)
-		return (err_msg("malloc player_img failed"), -1);
-	data->exit_img = (t_img *)malloc(sizeof(t_img));
-	if (!data->exit_img)
-		return (err_msg("malloc exit_img failed"), -1);
-	data->collectible_img = (t_img *)malloc(sizeof(t_img));
-	if (!data->collectible_img)
-		return (err_msg("malloc collectible_img failed"), -1);
-	data->wall_img = (t_img *)malloc(sizeof(t_img));
-	if (!data->wall_img)
-		return (err_msg("malloc wall_img failed"), -1);
-	data->ground_img = (t_img *)malloc(sizeof(t_img));
-	if (!data->ground_img)
-		return (err_msg("malloc ground_img failed"), -1);
+	int		i;
+	t_img	*textures[5];
+
+	textures[0] = data->player_img;
+	textures[1] = data->exit_img;
+	textures[2] = data->collectible_img;
+	textures[3] = data->wall_img;
+	textures[4] = data->ground_img;
+	i = 0;
+	while (i < 5)
+	{
+		textures[i] = (t_img *)malloc(sizeof(t_img));
+		if (!textures[i])
+			return (err_msg("malloc textures failed"), -1);
+	}
 	return (0);
 }
 
