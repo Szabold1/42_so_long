@@ -31,11 +31,7 @@ static int	check_args(int argc, char *argv[])
 int	main(int argc, char *argv[])
 {
 	t_data		*data;
-	t_game_data	*game_d;
 
-	data = NULL;
-	game_d = NULL;
-	check_args(argc, argv);
 	data = (t_data *)malloc(sizeof(t_data));
 	if (data == NULL)
 		return (err_msg("malloc t_data failed"), EXIT_FAILURE);

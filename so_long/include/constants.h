@@ -1,7 +1,7 @@
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
-# define TILE_SIZE 32
+# define TILE_SIZE 42
 
 # define PLAYER_PATH "./textures/monkey.xpm"
 # define EXIT_PATH "./textures/restroom.xpm"
