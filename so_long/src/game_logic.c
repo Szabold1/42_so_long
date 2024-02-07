@@ -3,7 +3,8 @@
 // end the game and free all allocated memory
 // if msg is not NULL, print it before ending the game
 void	end_game(t_data *data, char *msg)
-{	if (msg)
+{
+	if (msg)
 		ft_printf("%s\n", msg);
 	ft_printf("Number of movements: %d\n", data->game_d->moves);
 	clean_up(data);

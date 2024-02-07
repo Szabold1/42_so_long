@@ -26,7 +26,7 @@ static int	check_walls_and_rectangle(t_game_data *game_d)
 		while (game_d->map[row][col])
 		{
 			if (row == 0 || col == 0 || col == game_d->cols - 1
-					|| row == game_d->rows - 1)
+				|| row == game_d->rows - 1)
 				if (game_d->map[row][col] != WALL)
 					return (err_msg("map is not surrounded by walls"), -1);
 			col++;

@@ -8,9 +8,9 @@
 /*   Created: 2024/01/26 11:22:07 by bszabo            #+#    #+#             */
 /*   Updated: 2024/01/26 11:22:19 by bszabo           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */ 
- 
- #include "../include/so_long.h"
+/* ************************************************************************** */
+
+#include "../include/so_long.h"
 
 // refresh the screen by redrawing player cell and cells next to it
 static void	refresh_screen(t_data *data)

@@ -36,8 +36,8 @@ static void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 // size of the rectangle is TILE_SIZE x TILE_SIZE
 static void	draw_tile(t_img *img_dest, t_img *img_src, int row, int col)
 {
-	int	x;
-	int	y;
+	int				x;
+	int				y;
 	unsigned int	color;
 
 	y = 0;
@@ -47,7 +47,8 @@ static void	draw_tile(t_img *img_dest, t_img *img_src, int row, int col)
 		while (x < TILE_SIZE)
 		{
 			color = get_pixel_color(img_src, x, y);
-			draw_pixel(img_dest, col * TILE_SIZE + x, row * TILE_SIZE + y, color);
+			draw_pixel(img_dest, col * TILE_SIZE + x,
+				row * TILE_SIZE + y, color);
 			x++;
 		}
 		y++;

@@ -28,7 +28,6 @@
 # include <stdio.h>
 # include <errno.h>
 
-
 /* ************************************************************************** */
 // initialize data and graphics
 
@@ -51,7 +50,6 @@ int		init_graphics(t_data *data);
 // (init_graphics.c)
 /* ************************************************************************** */
 
-
 /* ************************************************************************** */
 // display the map, or parts of it
 
@@ -59,7 +57,6 @@ void	display_tile(t_data *data, int row, int col);
 void	display_map(t_data *data);
 // (display_map.c)
 /* ************************************************************************** */
-
 
 /* ************************************************************************** */
 // game logic and event handling
@@ -72,7 +69,6 @@ void	end_game(t_data *data, char *msg);
 void	move_player(t_data *data, int dx, int dy);
 // (game_logic.c)
 /* ************************************************************************** */
-
 
 /* ************************************************************************** */
 // error handling and memory management

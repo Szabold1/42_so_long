@@ -30,7 +30,7 @@ static int	dfs_check_path(t_game_data *game_d, int row, int col,
 // return 0 if there's a valid path, -1 otherwise
 int	check_path(t_game_data *game_d)
 {
-	int	visited[game_d->rows][game_d->cols];
+	int	**visited;
 
 	ft_memset(visited, 0, sizeof(visited));
 	if (dfs_check_path(game_d, game_d->player_curr_y,
