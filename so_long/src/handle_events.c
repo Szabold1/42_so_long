@@ -8,38 +8,40 @@
 /*   Created: 2024/01/26 11:22:07 by bszabo            #+#    #+#             */
 /*   Updated: 2024/01/26 11:22:19 by bszabo           ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
+/* ************************************************************************** */ 
+ 
+ #include "../include/so_long.h"
 
-#include "../include/so_long.h"
-
-// refresh the screen by redrawing player cell and cells around it
-// and put the image to the window
+// refresh the screen by redrawing player cell and cells next to it
 static void	refresh_screen(t_data *data)
 {
-	int	row;
-	int	col;
+	int	player_curr_x;
+	int	player_curr_y;
 
-	row = data->game_d->player_curr_y - 1;
-	col = data->game_d->player_curr_x - 1;
-	while (row <= data->game_d->player_curr_y + 1)
+	player_curr_x = data->game_d->player_curr_x;
+	player_curr_y = data->game_d->player_curr_y;
+	if (player_curr_x > 0 && player_curr_y > 0
+		&& player_curr_x < data->game_d->cols - 1
+		&& player_curr_y < data->game_d->rows - 1)
 	{
-		while (col <= data->game_d->player_curr_x + 1)
-			handle_draw_cell(data, row, col++);
-		row++;
+		display_tile(data, player_curr_y, player_curr_x);
+		display_tile(data, player_curr_y - 1, player_curr_x);
+		display_tile(data, player_curr_y + 1, player_curr_x);
+		display_tile(data, player_curr_y, player_curr_x - 1);
+		display_tile(data, player_curr_y, player_curr_x + 1);
 	}
-	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-		data->img_ptr->ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, 0);
 }
 
-// handle KeyPress events
+// handle the case when a key is pressed (KeyPress event)
 // if the key pressed is ESC, exit the program
 // if the key pressed is an arrow key, move the player
 // refresh the screen after every event
-int	handle_keypress(int keycode, void *param)
+void	handle_keypress(int keycode, void *data_ptr)
 {
 	t_data	*data;
 
-	data = (t_data *)param;
+	data = (t_data *)data_ptr;
 	if (keycode == KEY_ESC)
 		end_game(data, NULL);
 	else if (keycode == KEY_UP_ARROW)
@@ -51,15 +53,13 @@ int	handle_keypress(int keycode, void *param)
 	else if (keycode == KEY_RIGHT_ARROW)
 		move_player(data, 1, 0);
 	refresh_screen(data);
-	return (0);
 }
 
-// handle DestroyNotify events
-int	handle_destroy(void *param)
+// handle the case when the window is closed (DestroyNotify event)
+void	handle_destroy(void *data_ptr)
 {
 	t_data	*data;
 
-	data = (t_data *)param;
+	data = (t_data *)data_ptr;
 	end_game(data, NULL);
-	return (0);
 }

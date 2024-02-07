@@ -1,29 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   move_player.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/26 11:22:40 by bszabo            #+#    #+#             */
-/*   Updated: 2024/01/26 11:22:45 by bszabo           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../include/so_long.h"
 
+// end the game and free all allocated memory
+// if msg is not NULL, print it before ending the game
+void	end_game(t_data *data, char *msg)
+{	if (msg)
+		ft_printf("%s\n", msg);
+	ft_printf("Number of movements: %d\n", data->game_d->moves);
+	clean_up(data);
+	exit(0);
+}
+
 // check if moving to the new position is valid
-// return true if the new position is valid and false otherwise
-static bool	is_valid_move(t_game_data *game_d, int x, int y)
+// return 0 if the new position is valid and -1 otherwise
+static bool	check_move(t_game_data *game_d, int x, int y)
 {
 	if (x < 0 || y < 0 || x >= game_d->cols || y >= game_d->rows)
-		return (false);
+		return (-1);
 	else if (game_d->map[y][x] == WALL)
-		return (false);
+		return (-1);
 	else if (game_d->map[y][x] == GROUND || game_d->map[y][x] == COLLECTIBLE
 			|| game_d->map[y][x] == EXIT)
-		return (true);
-	return (false);
+		return (0);
+	return (-1);
 }
 
 // update the necessary data when the player moves to a new position
@@ -42,12 +40,12 @@ static void	update_data(t_data *data, int x, int y)
 		game_d->map[y][x] = PLAYER;
 	else if (game_d->map[y][x] == COLLECTIBLE)
 	{
-		game_d->collect--;
+		game_d->collectible--;
 		game_d->map[y][x] = PLAYER;
 	}
-	else if (game_d->map[y][x] == EXIT && game_d->collect == 0)
+	else if (game_d->map[y][x] == EXIT && game_d->collectible == 0)
 		end_game(data, "You won!");
-	else if (game_d->map[y][x] == EXIT && game_d->collect > 0)
+	else if (game_d->map[y][x] == EXIT && game_d->collectible > 0)
 		end_game(data, "You lost! You didn't collect all collectibles!");
 }
 
@@ -61,6 +59,6 @@ void	move_player(t_data *data, int x, int y)
 
 	new_x = data->game_d->player_curr_x + x;
 	new_y = data->game_d->player_curr_y + y;
-	if (is_valid_move(data->game_d, new_x, new_y))
+	if (check_move(data->game_d, new_x, new_y) == 0)
 		update_data(data, new_x, new_y);
 }

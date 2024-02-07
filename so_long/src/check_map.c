@@ -12,122 +12,90 @@
 
 #include "../include/so_long.h"
 
-// 0 for an empty space,
-// 1 for a wall,
-// C for a collectible,
-// E for a map exit,
-// P for the player’s starting position.
-
-// count the number of rows in the map (2D array) and return it
-static int	get_nb_rows(char **map)
+// check if the map is surrounded by walls and is rectangular
+// return 0 if all conditions are met, -1 otherwise
+static int	check_walls_and_rectangle(t_game_data *game_d)
 {
 	int	row;
+	int	col;
 
 	row = 0;
-	while (map[row])
-		row++;
-	return (row);
-}
-
-// check if map is rectangular and closed/surrounded by walls
-// also set the number of rows and columns in t_game_data
-// return true if all conditions are met, false otherwise
-bool	check_rect_walls(t_game_data *game_d, int row, int col)
-{
-	int	len;
-	int	nb_rows;
-
-	if (game_d->map[0] == NULL)
-		return (false);
-	len = ft_strlen(game_d->map[0]);
-	nb_rows = get_nb_rows(game_d->map);
 	while (game_d->map[row])
 	{
+		col = 0;
 		while (game_d->map[row][col])
 		{
-			if ((row == 0 || col == 0 || col == len - 1 || row == nb_rows - 1)
-				&& (game_d->map[row][col] != WALL))
-				return (false);
+			if (row == 0 || col == 0 || col == game_d->cols - 1
+					|| row == game_d->rows - 1)
+				if (game_d->map[row][col] != WALL)
+					return (err_msg("map is not surrounded by walls"), -1);
 			col++;
 		}
-		if (col != len)
-			return (false);
+		if (col != game_d->cols)
+			return (err_msg("map is not rectangular"), -1);
 		row++;
 	}
-	game_d->rows = row;
-	game_d->cols = col;
-	return (true);
+	return (0);
 }
 
-// (depth-first search)
-// check if there's a valid path from 'start' to 'exit' and to all collectibles
-// return true if there's a valid path, false otherwise
-static bool	dfs_check_path(t_game_data *game_d, int row, int col,
-					int visited[game_d->rows][game_d->cols])
+// check if the map contains the followings:
+// only 1 exit, at least 1 collectible, and only 1 starting position
+// return 0 if all conditions are met, -1 otherwise
+static int	check_nb_of_characters(t_game_data *game_d)
 {
-	static bool	exit;
-	static int	collect;
-
-	exit = false;
-	collect = game_d->collect;
-	if (row < 0 || col < 0 || row >= game_d->rows || col >= game_d->cols
-		|| visited[row][col] == 1 || game_d->map[row][col] == WALL)
-		return (false);
-	visited[row][col] = 1;
-	if (game_d->map[row][col] == EXIT)
-		exit = true;
-	else if (game_d->map[row][col] == COLLECTIBLE)
-		collect--;
-	if (exit && (collect == 0))
-		return (true);
-	return (dfs_check_path(game_d, row - 1, col, visited)
-		|| dfs_check_path(game_d, row + 1, col, visited)
-		|| dfs_check_path(game_d, row, col - 1, visited)
-		|| dfs_check_path(game_d, row, col + 1, visited));
+	if (game_d->exit < 1)
+		return (err_msg("map does not contain an exit"), -1);
+	else if (game_d->exit > 1)
+		return (err_msg("map contains more than 1 exit"), -1);
+	else if (game_d->collectible < 1)
+		return (err_msg("map does not contain any collectibles"), -1);
+	else if (game_d->player_start < 1)
+		return (err_msg("map does not contain starting position"), -1);
+	else if (game_d->player_start > 1)
+		return (err_msg("map contains more than 1 starting position"), -1);
+	return (0);
 }
 
-// set the starting position of the player
-// return true if the starting position is set, false otherwise
-static bool	set_start_pos(t_game_data *game_d, int row, int col)
+// check if the map contains valid characters
+// return 0 if all conditions are met, -1 otherwise
+static int	check_characters(t_game_data *game_d)
 {
-	if (game_d->player_curr_x != -1 || game_d->player_curr_y != -1)
-		return (false);
-	game_d->player_curr_y = row;
-	game_d->player_curr_x = col;
-	game_d->map[row][col] = PLAYER;
-	return (true);
-}
+	int	row;
+	int	col;
 
-// check if map contains the followings:
-// 1 exit, at least 1 collectible, 1 starting position, and a valid path
-// also set the starting position of the player,
-// and the number of collect, exit, and start in t_game_data
-// return true if all conditions are met, false otherwise
-bool	check_elements_path(t_game_data *game_d, int i, int j)
-{
-	int	visited[game_d->rows][game_d->cols];
-
-	ft_memset(visited, 0, sizeof(visited));
-	while (game_d->map[i])
+	if (check_nb_of_characters(game_d) == -1)
+		return (-1);
+	row = 0;
+	while (game_d->map[row])
 	{
-		while (game_d->map[i][j])
+		col = 0;
+		while (game_d->map[row][col])
 		{
-			if (game_d->map[i][j] == COLLECTIBLE)
-				game_d->collect++;
-			else if (game_d->map[i][j] == EXIT)
-				game_d->exit++;
-			else if (game_d->map[i][j] == 'P' && set_start_pos(game_d, i, j))
-				game_d->start++;
-			else if (game_d->map[i][j] != GROUND && game_d->map[i][j] != WALL)
-				return (false);
-			j++;
+			if (game_d->map[row][col] != PLAYER
+				&& game_d->map[row][col] != EXIT
+				&& game_d->map[row][col] != COLLECTIBLE
+				&& game_d->map[row][col] != WALL
+				&& game_d->map[row][col] != GROUND)
+				return (err_msg("map contains invalid characters"), -1);
+			col++;
 		}
-		i++;
+		row++;
 	}
-	if (!dfs_check_path(game_d, game_d->player_curr_y, game_d->player_curr_x,
-			visited))
-		return (false);
-	if (game_d->collect < 1 || game_d->exit != 1 || game_d->start != 1)
-		return (false);
-	return (true);
+	return (0);
+}
+
+// check if map is valid
+// return 0 if it is, -1 otherwise
+int	check_map(char *map_filename, t_data *data)
+{
+	data->map_fd = open(map_filename, O_RDONLY);
+	if (data->map_fd == -1)
+		return (err_msg("open failed"), -1);
+	if (set_game_data(data, data->map_fd) == -1)
+		return (err_msg("set_game_data failed"), -1);
+	if (check_walls_and_rectangle(data->game_d) == -1
+		|| check_characters(data->game_d) == -1
+		|| check_path(data) == -1)
+		return (-1);
+	return (0);
 }

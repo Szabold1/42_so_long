@@ -12,74 +12,73 @@
 
 #include "../include/so_long.h"
 
-// 1. create a string from the map
-// 2. split the string by new lines into an array of strings
-// and store it in game_d->map
-static bool	create_map(t_game_data *game_d, int file)
+// create a string 'map_str' from the map,
+// and split it by new lines into an array of strings 'game_d->map'
+// if successful, return 0, otherwise return -1
+static int	create_map(t_game_data *game_d, int map_fd)
 {
 	char	*map_str;
 	char	*line;
 
 	map_str = NULL;
-	line = get_next_line(file);
+	line = get_next_line(map_fd);
 	if (line == NULL)
-		return (false);
+		return (-1);
 	while (line)
 	{
 		map_str = ft_strjoin(map_str, line);
+		if (map_str == NULL)
+			return (free(line), -1);
 		free(line);
-		line = get_next_line(file);
+		line = get_next_line(map_fd);
 	}
+	free(line);
 	game_d->map = ft_split(map_str, '\n');
 	if (game_d->map == NULL)
-	{
-		free(map_str);
-		return (false);
-	}
+		return (free(map_str), -1);
 	free(map_str);
-	return (true);
+	return (0);
 }
 
-// initialize t_game_data structure with default values
-// and set game_d->map to the map from the file
-static bool	fill_game_data(t_game_data *game_d, int file)
+// set the rest of the game data from the map
+// rows, cols, collectible, exit, player_start, player_curr_x, player_curr_y
+// if successful, return 0, otherwise return -1
+static int	set_game_data_rest(t_game_data *game_d)
 {
-	game_d->map = NULL;
-	game_d->rows = 0;
-	game_d->cols = 0;
-	game_d->collect = 0;
-	game_d->exit = 0;
-	game_d->start = 0;
-	game_d->player_curr_x = -1;
-	game_d->player_curr_y = -1;
-	game_d->moves = 0;
-	if (!create_map(game_d, file))
-		return (false);
-	return (true);
-}
+	int	row;
+	int	col;
 
-// fill t_game_data structure and check if map is valid
-// return t_game_data structure if map is valid, exit otherwise
-t_game_data	*set_game_data(char *filename, t_data *data, t_game_data *game_d)
-{
-	int	i;
-	int	j;
-	int	file;
-
-	i = 0;
-	j = 0;
-	file = open(filename, O_RDONLY);
-	if (file == -1)
-		exit_free(data, "Error\nFile opening failed\n");
-	if (!fill_game_data(game_d, file)
-		|| !check_rect_walls(game_d, i, j)
-		|| !check_elements_path(game_d, i, j))
+	row = 0;
+	while (game_d->map[row])
 	{
-		if (close(file) == -1)
-			exit_free(data, "Error\nFile closing failed\n");
-		exit_free(data, "Error\nInvalid map\n");
+		col = 0;
+		while (game_d->map[row][col])
+		{
+			if (game_d->map[row][col] == PLAYER)
+			{
+				game_d->player_curr_x = col;
+				game_d->player_curr_y = row;
+				game_d->player_start++;
+			}
+			else if (game_d->map[row][col] == EXIT)
+				game_d->exit++;
+			else if (game_d->map[row][col] == COLLECTIBLE)
+				game_d->collectible++;
+			col++;
+		}
+		row++;
 	}
-	if (close(file) == -1)
-		exit_free(data, "Error\nFile closing failed\n");
-	return (game_d);
+	game_d->rows = row;
+	game_d->cols = col;
+}
+
+// set game data from the map file and store it in the game_d struct
+// if successful, return 0, otherwise return -1
+int	set_game_data(t_data *data, int map_fd)
+{
+	if (create_map(data->game_d, map_fd) == -1)
+		return (-1);
+	if (set_game_data_rest(data->game_d) == -1)
+		return (-1);
+	return (0);
 }
