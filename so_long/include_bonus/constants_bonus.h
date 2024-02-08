@@ -6,7 +6,7 @@
 # define PLAYER_PATH "./textures/monkey_42.xpm"
 # define EXIT_PATH "./textures/restroom_42.xpm"
 # define COLLECTIBLE_PATH "./textures/banana_42.xpm"
-# define WALL_PATH "./textures/wall_42.xpm"
+# define WALL_PATH "./textures/brick_42.xpm"
 # define GROUND_PATH "./textures/empty_42.xpm"
 # define ENEMY_PATH "./textures/black_panther_42.xpm"
 
