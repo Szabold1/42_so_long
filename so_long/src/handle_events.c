@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   handle_events.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 11:22:07 by bszabo            #+#    #+#             */
 /*   Updated: 2024/01/26 11:22:19 by bszabo           ###   ########.fr       */
@@ -37,7 +37,7 @@ static void	refresh_screen(t_data *data)
 // if the key pressed is ESC, exit the program
 // if the key pressed is an arrow key, move the player
 // refresh the screen after every event
-void	handle_keypress(int keycode, void *data_ptr)
+int	handle_keypress(int keycode, void *data_ptr)
 {
 	t_data	*data;
 
@@ -53,13 +53,15 @@ void	handle_keypress(int keycode, void *data_ptr)
 	else if (keycode == KEY_RIGHT_ARROW)
 		move_player(data, 1, 0);
 	refresh_screen(data);
+	return (0);
 }
 
 // handle the case when the window is closed (DestroyNotify event)
-void	handle_destroy(void *data_ptr)
+int	handle_destroy(void *data_ptr)
 {
 	t_data	*data;
 
 	data = (t_data *)data_ptr;
 	end_game(data, NULL);
+	return (-1);
 }

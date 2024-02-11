@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   set_game_data.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 11:22:59 by bszabo            #+#    #+#             */
 /*   Updated: 2024/01/26 11:23:08 by bszabo           ###   ########.fr       */
@@ -28,7 +28,7 @@ static int	create_map_visited(t_game_data *game_d, char *map_str)
 		col = 0;
 		while (game_d->map_visited[row][col])
 		{
-			game_d->map_visited[row][col] = 0;
+			game_d->map_visited[row][col] = '0';
 			col++;
 		}
 		row++;
@@ -44,7 +44,7 @@ static int	create_map(t_game_data *game_d, int map_fd)
 	char	*map_str;
 	char	*line;
 
-	map_str = NULL;
+	map_str = "";
 	line = get_next_line(map_fd);
 	if (line == NULL)
 		return (-1);
@@ -69,7 +69,7 @@ static int	create_map(t_game_data *game_d, int map_fd)
 // set the rest of the game data from the map
 // rows, cols, collectible, exit, player_start, player_curr_x, player_curr_y
 // if successful, return 0, otherwise return -1
-static int	set_game_data_rest(t_game_data *game_d)
+static void	set_game_data_rest(t_game_data *game_d)
 {
 	int	row;
 	int	col;
@@ -104,7 +104,6 @@ int	set_game_data(t_data *data, int map_fd)
 {
 	if (create_map(data->game_d, map_fd) == -1)
 		return (-1);
-	if (set_game_data_rest(data->game_d) == -1)
-		return (-1);
+	set_game_data_rest(data->game_d);
 	return (0);
 }

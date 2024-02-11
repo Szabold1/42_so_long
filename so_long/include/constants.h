@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   constants.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:05:21 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:06:16 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CONSTANTS_H
 # define CONSTANTS_H
 
 # define TILE_SIZE 42
 
-# define PLAYER_PATH "./textures/monkey.xpm"
-# define EXIT_PATH "./textures/restroom.xpm"
-# define COLLECTIBLE_PATH "./textures/banana.xpm"
-# define WALL_PATH "./textures/brick_42.xpm"
-# define GROUND_PATH "./textures/empty.xpm"
+# define PLAYER_PATH "textures/monkey_42.xpm"
+# define EXIT_PATH "textures/restroom_42.xpm"
+# define COLLECTIBLE_PATH "textures/banana_42.xpm"
+# define WALL_PATH "textures/brick_42.xpm"
+# define GROUND_PATH "textures/empty_42.xpm"
 
 # define PLAYER 'P'
 # define EXIT 'E'

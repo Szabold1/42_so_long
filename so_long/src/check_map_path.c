@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_path.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:09:38 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:09:42 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
 
 // (depth-first search)
 // return 0 if there's a valid path, -1 otherwise
 static int	dfs_check_path(t_game_data *game_d, int row, int col,
-					int **visited)
+					char **visited)
 {
 	static bool	exit;
 	static int	collect;
@@ -13,7 +25,7 @@ static int	dfs_check_path(t_game_data *game_d, int row, int col,
 	if (row < 0 || col < 0 || row >= game_d->rows || col >= game_d->cols
 		|| visited[row][col] == 1 || game_d->map[row][col] == WALL)
 		return (-1);
-	visited[row][col] = 1;
+	visited[row][col] = '1';
 	if (game_d->map[row][col] == EXIT)
 		exit = true;
 	else if (game_d->map[row][col] == COLLECTIBLE)

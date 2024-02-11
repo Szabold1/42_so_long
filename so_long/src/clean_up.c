@@ -1,36 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean_up.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:09:54 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:10:05 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
-
-// free a 2d array of strings
-static void	free_array(char **array)
-{
-	int	i;
-
-	i = 0;
-	if (array)
-	{
-		while (array[i])
-		{
-			free(array[i]);
-			array[i] = NULL;
-			i++;
-		}
-		free(array);
-	}
-}
-
-// free the t_img struct and the image it points to
-static void	free_img(t_data *data, t_img *img)
-{
-	if (img)
-	{
-		if (img->ptr)
-		{
-			mlx_destroy_image(data->mlx, img->ptr);
-			img->ptr = NULL;
-		}
-		free(img);
-	}
-}
 
 // free the mlx and all the resources it uses
 static void	clean_up_mlx(t_data *data)
@@ -76,6 +56,25 @@ static void	clean_up_textures(t_data *data)
 	}
 }
 
+static void	clean_up_game_data(t_data *data)
+{
+	if (data->game_d)
+	{
+		if (data->game_d->map)
+		{
+			free_array(data->game_d->map);
+			data->game_d->map = NULL;
+		}
+		if (data->game_d->map_visited)
+		{
+			free_array(data->game_d->map_visited);
+			data->game_d->map_visited = NULL;
+		}
+		free(data->game_d);
+		data->game_d = NULL;
+	}
+}
+
 void	clean_up(t_data *data)
 {
 	if (data)
@@ -84,21 +83,7 @@ void	clean_up(t_data *data)
 			close(data->map_fd);
 		clean_up_mlx(data);
 		clean_up_textures(data);
-		if (data->game_d)
-		{
-			if (data->game_d->map)
-			{
-				free_array(data->game_d->map);
-				data->game_d->map = NULL;
-			}
-			if (data->game_d->map_visited)
-			{
-				free_array(data->game_d->map_visited);
-				data->game_d->map_visited = NULL;
-			}
-			free(data->game_d);
-			data->game_d = NULL;
-		}
+		clean_up_game_data(data);
 		free(data);
 	}
 }

@@ -17,14 +17,19 @@ LIBFT = $(LIBFT_DIR)/libft_full.a
 SRC_DIR = ./src
 
 # Source Files
-SRC = check_map.c \
-		draw.c \
-		exit_free.c \
+SRC = check_map_path.c \
+		check_map.c \
+		clean_up.c \
+		clean_up_2.c \
+		display_map.c \
+		errors.c \
+		game_logic.c \
 		handle_events.c \
+		init_data_memory.c \
+		init_data.c \
+		init_graphics.c \
 		main.c \
-		move_player.c \
-		set_game_data.c \
-		set_graphics_data.c
+		set_game_data.c
 
 # Object Files
 OBJ = $(SRC:%.c=$(SRC_DIR)/%.o)
@@ -42,19 +47,19 @@ $(NAME): $(LIBFT) $(OBJ)
 # Library Compilation
 $(LIBFT): $(LIBFT_DIR)
 	@echo "🔨 compiling libft"
-	@cd $(LIBFT_DIR) && $(MAKE) full
+	@cd $(LIBFT_DIR) && $(MAKE) --quiet full
 	@echo "✅ libft compiled"
 
 # Phony Targets
 all: $(NAME)
 
 clean:
-	@cd $(LIBFT_DIR) && $(MAKE) clean
+	@cd $(LIBFT_DIR) && $(MAKE) --quiet clean
 	@$(RM) $(OBJ)
 	@echo "✅ object files removed"
 
 fclean: clean
-	@cd $(LIBFT_DIR) && $(MAKE) fclean
+	@cd $(LIBFT_DIR) && $(MAKE) --quiet fclean
 	@echo "✅ libft library removed"
 	@$(RM) $(NAME)
 	@echo "✅ $(NAME) executable removed"

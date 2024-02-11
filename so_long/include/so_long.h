@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 11:20:47 by bszabo            #+#    #+#             */
 /*   Updated: 2024/01/26 11:20:53 by bszabo           ###   ########.fr       */
@@ -19,8 +19,8 @@
 # include "../libft/include/libft.h"
 // mlx header files
 # include <mlx.h>
-// # include <X11/X.h>
-// # include <X11/keysym.h>
+# include <X11/X.h>
+# include <X11/keysym.h>
 // c header files
 # include <stdlib.h>
 # include <fcntl.h>
@@ -61,8 +61,8 @@ void	display_map(t_data *data);
 /* ************************************************************************** */
 // game logic and event handling
 
-void	handle_keypress(int keycode, void *data_ptr);
-void	handle_destroy(void *data_ptr);
+int 	handle_keypress(int keycode, void *data_ptr);
+int	    handle_destroy(void *data_ptr);
 // (handle_events.c)
 
 void	end_game(t_data *data, char *msg);
@@ -75,6 +75,10 @@ void	move_player(t_data *data, int dx, int dy);
 
 void	clean_up(t_data *data);
 // (clean_up.c)
+
+void	free_array(char **array);
+void	free_img(t_data *data, t_img *img);
+// (clean_up_2.c)
 
 void	err_msg(char *msg);
 // (errors.c)

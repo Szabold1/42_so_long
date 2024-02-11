@@ -1,39 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*   clean_up_2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 14:21:55 by bszabo            #+#    #+#             */
-/*   Updated: 2023/09/05 15:32:55 by bszabo           ###   ########.fr       */
+/*   Created: 2024/02/08 13:54:08 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:54:12 by bszabo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "../include/so_long.h"
 
-// erase the data in the n bytes of the memory by writing zeroes
-void	ft_bzero(void *s, size_t n)
+// free a 2d array of strings
+void	free_array(char **array)
 {
-	unsigned char	*ptr;
+	int	i;
 
-	ptr = (unsigned char *)s;
-	while (n > 0)
+	i = 0;
+	if (array)
 	{
-		*ptr = '\0';
-		ptr++;
-		n--;
+		while (array[i])
+		{
+			free(array[i]);
+			array[i] = NULL;
+			i++;
+		}
+		free(array);
 	}
 }
-/*
-#include <stdio.h>
-int	main(void)
+
+// free the t_img struct and the image it points to
+void	free_img(t_data *data, t_img *img)
 {
-	char s[10] = "testing";
-	printf("before: %s\n", s);
-	ft_bzero(s, 5);
-	printf("after: %s\n", s);
-	printf("%c", s[5]);
-	return (0);
+	if (img)
+	{
+		if (img->ptr)
+		{
+			mlx_destroy_image(data->mlx, img->ptr);
+			img->ptr = NULL;
+		}
+		free(img);
+	}
 }
-*/

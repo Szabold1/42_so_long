@@ -1,5 +1,17 @@
-#ifndef STRUCTURES_H
-# define STRUCTURES_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures_bonus.h                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:08:36 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:08:42 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef STRUCTURES_BONUS_H
+# define STRUCTURES_BONUS_H
 
 // structure for holding data related to the game
 typedef struct s_game_data

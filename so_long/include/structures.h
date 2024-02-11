@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   structures.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:06:54 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:06:58 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef STRUCTURES_H
 # define STRUCTURES_H
 
@@ -5,7 +17,7 @@
 typedef struct s_game_data
 {
 	char	**map;
-	int		**map_visited;
+	char	**map_visited;
 	int		rows;
 	int		cols;
 	int		collectible;

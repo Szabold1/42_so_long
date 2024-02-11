@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bszabo <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 11:21:24 by bszabo            #+#    #+#             */
 /*   Updated: 2024/01/26 11:21:28 by bszabo           ###   ########.fr       */
@@ -95,7 +95,7 @@ int	check_map(char *map_filename, t_data *data)
 		return (err_msg("set_game_data failed"), -1);
 	if (check_walls_and_rectangle(data->game_d) == -1
 		|| check_characters(data->game_d) == -1
-		|| check_path(data) == -1)
+		|| check_path(data->game_d) == -1)
 		return (-1);
 	return (0);
 }

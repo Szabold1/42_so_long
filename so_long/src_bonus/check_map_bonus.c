@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:12:22 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:12:26 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include_bonus/so_long_bonus.h"
 
 // check if the map is surrounded by walls and is rectangular
@@ -84,7 +96,7 @@ int	check_map(char *map_filename, t_data *data)
 		return (err_msg("set_game_data failed"), -1);
 	if (check_walls_and_rectangle(data->game_d) == -1
 		|| check_characters(data->game_d) == -1
-		|| check_path(data) == -1)
+		|| check_path(data->game_d) == -1)
 		return (-1);
 	return (0);
 }

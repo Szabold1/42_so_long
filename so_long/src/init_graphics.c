@@ -1,4 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_graphics.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:11:31 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:11:34 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/so_long.h"
+
+static int	check_display_size(t_data *data, int map_width, int map_height)
+{
+	int	width;
+	int	height;
+
+	mlx_get_screen_size(data->mlx, &width, &height);
+	ft_printf_fd(2, "display_width: %d, display_height: %d\n", width, height);
+	if (map_width > width)
+		return (err_msg("the map is too wide for your display") , -1);
+	if (map_height > height)
+		return (err_msg("the map is too high for your display"), -1);
+	return (0);
+}
 
 // initialize mlx, window, image, and data about the image
 // return 0 if successful, -1 otherwise
@@ -9,6 +35,8 @@ static int	init_mlx(t_data *data)
 
 	width = data->game_d->cols * TILE_SIZE;
 	height = data->game_d->rows * TILE_SIZE;
+	if (check_display_size(data, width, height) == -1)
+		return (-1);
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (err_msg("mlx_init() failed"), -1);
@@ -50,7 +78,8 @@ static int	load_textures(t_data *data)
 		|| load_texture(data, data->collectible_img, COLLECTIBLE_PATH) == -1
 		|| load_texture(data, data->wall_img, WALL_PATH) == -1
 		|| load_texture(data, data->ground_img, GROUND_PATH) == -1)
-		return (err_msg("load_textures failed"), -1);
+		return (-1);
+	return (0);
 }
 
 // initialize mlx and load textures
