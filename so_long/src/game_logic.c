@@ -16,10 +16,9 @@
 // if msg is not NULL, print it before ending the game
 void	end_game(t_data *data, char *msg)
 {
+	ft_printf("Game over\n");
 	if (msg)
 		ft_printf("%s\n", msg);
-	ft_printf("Game over\n");
-	ft_printf("Number of movements: %d\n", data->game_d->moves);
 	clean_up(data);
 	exit(0);
 }
@@ -74,5 +73,8 @@ void	move_player(t_data *data, int x, int y)
 	new_x = data->game_d->player_curr_x + x;
 	new_y = data->game_d->player_curr_y + y;
 	if (check_move(data->game_d, new_x, new_y) == 0)
+	{
 		update_data(data, new_x, new_y);
+		ft_printf("\rNumber of movements: %d\n", data->game_d->moves);
+	}
 }

@@ -61,7 +61,6 @@ void	display_tile(t_data *data, int row, int col)
 	char	**map;
 
 	map = data->game_d->map;
-	draw_tile(data->img, data->ground_img, row, col);
 	if (map[row][col] == PLAYER)
 		draw_tile(data->img, data->player_img, row, col);
 	else if (map[row][col] == EXIT)
@@ -70,6 +69,8 @@ void	display_tile(t_data *data, int row, int col)
 		draw_tile(data->img, data->collectible_img, row, col);
 	else if (map[row][col] == WALL)
 		draw_tile(data->img, data->wall_img, row, col);
+	else if (map[row][col] == GROUND)
+		draw_tile(data->img, data->ground_img, row, col);
 }
 
 // display the map on the window
