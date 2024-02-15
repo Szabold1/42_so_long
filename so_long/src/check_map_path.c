@@ -40,7 +40,8 @@ int	check_path(t_game_data *game_d)
 	int		collect;
 
 	collect = game_d->collectible;
-	if (dfs_check_path(game_d, game_d->player_curr_y, game_d->player_curr_x, &collect) == -1)
+	if (dfs_check_path(game_d, game_d->player_curr_y, game_d->player_curr_x,
+			&collect) == -1)
 		return (err_msg("no valid path in the map", 0), -1);
 	return (0);
 }

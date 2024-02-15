@@ -51,7 +51,7 @@ int		check_path(t_game_data *game_d);
 int		init_graphics(t_data *data);
 // (init_graphics_bonus.c)
 
-int 	init_mlx(t_data *data);
+int		init_mlx(t_data *data);
 // (init_mlx_bonus.c)
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	display_moves(t_data *data);
 /* ************************************************************************** */
 // game logic and event handling
 
-int 	handle_keypress(int keycode, void *data_ptr);
-int	    handle_destroy(void *data_ptr);
+int		handle_keypress(int keycode, void *data_ptr);
+int		handle_destroy(void *data_ptr);
 // (handle_events_bonus.c)
 
 void	end_game(t_data *data, char *msg);

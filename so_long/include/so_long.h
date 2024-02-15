@@ -63,8 +63,8 @@ void	display_map(t_data *data);
 /* ************************************************************************** */
 // game logic and event handling
 
-int 	handle_keypress(int keycode, void *data_ptr);
-int	    handle_destroy(void *data_ptr);
+int		handle_keypress(int keycode, void *data_ptr);
+int		handle_destroy(void *data_ptr);
 // (handle_events.c)
 
 void	end_game(t_data *data, char *msg);

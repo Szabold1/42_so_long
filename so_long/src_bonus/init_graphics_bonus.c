@@ -16,8 +16,8 @@
 // return 0 if successful, -1 otherwise
 static int	load_moves_img(t_data *data)
 {
-	data->moves_img->ptr = mlx_new_image(data->mlx, data->game_d->cols * TILE_SIZE,
-			MOVES_TEXT_HEIGHT);
+	data->moves_img->ptr = mlx_new_image(data->mlx,
+			data->game_d->cols * TILE_SIZE, MOVES_TEXT_HEIGHT);
 	if (!data->moves_img->ptr)
 		return (err_msg("mlx_new_image() failed", 1), -1);
 	data->moves_img->addr = mlx_get_data_addr(data->moves_img->ptr,

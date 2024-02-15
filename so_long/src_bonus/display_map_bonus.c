@@ -92,5 +92,6 @@ void	display_map(t_data *data)
 		}
 		row++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, MOVES_TEXT_HEIGHT);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0,
+		MOVES_TEXT_HEIGHT);
 }

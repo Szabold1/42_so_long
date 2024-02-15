@@ -27,7 +27,7 @@ typedef struct s_game_data
 	int		player_start;
 	int		player_curr_x;
 	int		player_curr_y;
-	bool 	exit_reached;
+	bool	exit_reached;
 	int		moves;
 }	t_game_data;
 

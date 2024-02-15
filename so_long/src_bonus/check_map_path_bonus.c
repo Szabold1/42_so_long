@@ -16,7 +16,8 @@
 // return 0 if there's a valid path, -1 otherwise
 static int	dfs_check_path(t_game_data *game_d, int y, int x, int *collect)
 {
-	if (game_d->map[y][x] == WALL || game_d->map_visited[y][x] == '1' || game_d->map[y][x] == ENEMY)
+	if (game_d->map[y][x] == WALL || game_d->map_visited[y][x] == '1'
+		|| game_d->map[y][x] == ENEMY)
 		return (-1);
 	if (game_d->map[y][x] == EXIT)
 		game_d->exit_reached = true;
@@ -40,7 +41,8 @@ int	check_path(t_game_data *game_d)
 	int		collect;
 
 	collect = game_d->collectible;
-	if (dfs_check_path(game_d, game_d->player_curr_y, game_d->player_curr_x, &collect) == -1)
+	if (dfs_check_path(game_d, game_d->player_curr_y, game_d->player_curr_x,
+			&collect) == -1)
 		return (err_msg("no valid path in the map", 0), -1);
 	return (0);
 }

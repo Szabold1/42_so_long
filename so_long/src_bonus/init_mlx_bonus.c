@@ -7,7 +7,7 @@ static int	check_display_size(t_data *data, int map_width, int map_height)
 
 	mlx_get_screen_size(data->mlx, &width, &height);
 	if (map_width > width)
-		return (err_msg("map is too big horizontally", 0) , -1);
+		return (err_msg("map is too big horizontally", 0), -1);
 	if (map_height > height)
 		return (err_msg("map is too big vertically", 0), -1);
 	return (0);
