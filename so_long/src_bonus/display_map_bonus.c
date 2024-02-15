@@ -23,7 +23,7 @@ static unsigned int	get_pixel_color(t_img *img, int x, int y)
 }
 
 // draw a pixel on the 'img' at (x, y) with 'color'
-static void	draw_pixel(t_img *img, int x, int y, unsigned int color)
+void	draw_pixel(t_img *img, int x, int y, unsigned int color)
 {
 	char	*pixel;
 
@@ -92,5 +92,5 @@ void	display_map(t_data *data)
 		}
 		row++;
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, 0);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, MOVES_TEXT_HEIGHT);
 }

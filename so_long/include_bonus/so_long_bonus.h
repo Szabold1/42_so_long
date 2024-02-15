@@ -31,33 +31,40 @@
 // initialize data and graphics
 
 int		init_data(t_data *data);
-// (init_data.c)
+// (init_data_bonus.c)
 
 int		init_memory(t_data *data);
-// (init_data_memory.c)
+// (init_data_memory_bonus.c)
 
 int		check_map(char *map_filename, t_data *data);
-// (check_map.c)
+// (check_map_bonus.c)
 
 int		set_game_data(t_data *data, int map_fd);
-// (set_game_data.c)
+// (set_game_data_bonus.c)
 
 int		create_map(t_game_data *game_d, int map_fd);
-// (create_map.c)
+// (create_map_bonus.c)
 
 int		check_path(t_game_data *game_d);
-// (check_map_path.c)
+// (check_map_path_bonus.c)
 
 int		init_graphics(t_data *data);
-// (init_graphics.c)
+// (init_graphics_bonus.c)
+
+int 	init_mlx(t_data *data);
+// (init_mlx_bonus.c)
 /* ************************************************************************** */
 
 /* ************************************************************************** */
-// display the map, or parts of it
+// display stuff on the monitor screen
 
+void	draw_pixel(t_img *img, int x, int y, unsigned int color);
 void	display_tile(t_data *data, int row, int col);
 void	display_map(t_data *data);
-// (display_map.c)
+// (display_map_bonus.c)
+
+void	display_moves(t_data *data);
+// (display_moves_bonus.c)
 /* ************************************************************************** */
 
 /* ************************************************************************** */
@@ -65,25 +72,25 @@ void	display_map(t_data *data);
 
 int 	handle_keypress(int keycode, void *data_ptr);
 int	    handle_destroy(void *data_ptr);
-// (handle_events.c)
+// (handle_events_bonus.c)
 
 void	end_game(t_data *data, char *msg);
 void	move_player(t_data *data, int dx, int dy);
-// (game_logic.c)
+// (game_logic_bonus.c)
 /* ************************************************************************** */
 
 /* ************************************************************************** */
 // error handling and memory management
 
 void	clean_up(t_data *data);
-// (clean_up.c)
+// (clean_up_bonus.c)
 
 void	free_array(char **array);
 void	free_img(t_data *data, t_img *img);
-// (clean_up_2.c)
+// (clean_up_2_bonus.c)
 
 void	err_msg(char *msg, int show_errno);
-// (errors.c)
+// (errors_bonus.c)
 /* ************************************************************************** */
 
 #endif

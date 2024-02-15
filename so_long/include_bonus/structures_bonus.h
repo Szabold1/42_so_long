@@ -50,6 +50,7 @@ typedef struct s_data
 	void		*mlx;
 	void		*win;
 	t_img		*img;
+	t_img		*moves_img;
 	t_img		*player_img;
 	t_img		*exit_img;
 	t_img		*collectible_img;

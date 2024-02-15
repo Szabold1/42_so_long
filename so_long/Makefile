@@ -40,12 +40,14 @@ SRC_BONUS = check_map_bonus.c \
 			clean_up_bonus.c \
 			create_map_bonus.c \
 			display_map_bonus.c \
+			display_moves_bonus.c \
 			errors_bonus.c \
 			game_logic_bonus.c \
 			handle_events_bonus.c \
 			init_data_bonus.c \
 			init_data_memory_bonus.c \
 			init_graphics_bonus.c \
+			init_mlx_bonus.c \
 			main_bonus.c \
 			set_game_data_bonus.c
 

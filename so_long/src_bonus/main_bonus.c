@@ -44,6 +44,7 @@ int	main(int argc, char *argv[])
 	if (init_graphics(data) == -1)
 		return (err_msg("init_graphics failed", 0),
 			clean_up(data), EXIT_FAILURE);
+	display_moves(data);
 	display_map(data);
 	ft_printf("Game successfully loaded\n");
 	mlx_hook(data->win, 2, 1L << 0, handle_keypress, (void *)data);

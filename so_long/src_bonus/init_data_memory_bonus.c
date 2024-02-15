@@ -42,7 +42,10 @@ int	init_memory(t_data *data)
 {
 	data->img = (t_img *)malloc(sizeof(t_img));
 	if (!data->img)
-		return (err_msg("malloc t_img failed", 1), -1);
+		return (err_msg("malloc img failed", 1), -1);
+	data->moves_img = (t_img *)malloc(sizeof(t_img));
+	if (!data->moves_img)
+		return (err_msg("malloc moves_img failed", 1), -1);
 	if (init_memory_textures(data) == -1)
 		return (-1);
 	data->game_d = (t_game_data *)malloc(sizeof(t_game_data));

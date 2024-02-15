@@ -30,7 +30,8 @@ static void	refresh_screen(t_data *data)
 		display_tile(data, player_curr_y, player_curr_x - 1);
 		display_tile(data, player_curr_y, player_curr_x + 1);
 	}
-	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, 0);
+	display_moves(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img->ptr, 0, MOVES_TEXT_HEIGHT);
 }
 
 // handle the case when a key is pressed (KeyPress event)

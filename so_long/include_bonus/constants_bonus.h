@@ -18,6 +18,7 @@
 # define ENEMY_MSG "You lost! You were caught by an enemy!"
 
 # define TILE_SIZE 42
+# define MOVES_TEXT_HEIGHT 21
 
 # define PLAYER_PATH "textures/monkey_42.xpm"
 # define EXIT_PATH "textures/house_with_garden_42.xpm"

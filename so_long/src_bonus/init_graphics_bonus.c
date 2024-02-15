@@ -12,44 +12,21 @@
 
 #include "../include_bonus/so_long_bonus.h"
 
-static int	check_display_size(t_data *data, int map_width, int map_height)
-{
-	int	width;
-	int	height;
-
-	mlx_get_screen_size(data->mlx, &width, &height);
-	if (map_width > width)
-		return (err_msg("map is too big horizontally", 0) , -1);
-	if (map_height > height)
-		return (err_msg("map is too big vertically", 0), -1);
-	return (0);
-}
-
-// initialize mlx, window, image, and data about the image
+// load img for displaying moves
 // return 0 if successful, -1 otherwise
-static int	init_mlx(t_data *data)
+static int	load_moves_img(t_data *data)
 {
-	int	width;
-	int	height;
-
-	width = data->game_d->cols * TILE_SIZE;
-	height = data->game_d->rows * TILE_SIZE;
-	data->mlx = mlx_init();
-	if (!data->mlx)
-		return (err_msg("mlx_init() failed", 1), -1);
-	data->win = mlx_new_window(data->mlx, width, height, "so_long");
-	if (!data->win)
-		return (err_msg("mlx_new_window() failed", 1), -1);
-	data->img->ptr = mlx_new_image(data->mlx, width, height);
-	if (!data->img->ptr)
+	data->moves_img->ptr = mlx_new_image(data->mlx, data->game_d->cols * TILE_SIZE,
+			MOVES_TEXT_HEIGHT);
+	if (!data->moves_img->ptr)
 		return (err_msg("mlx_new_image() failed", 1), -1);
-	data->img->addr = mlx_get_data_addr(data->img->ptr,
-			&data->img->bits_per_pixel, &data->img->line_len,
-			&data->img->endian);
-	if (!data->img->addr)
+	data->moves_img->addr = mlx_get_data_addr(data->moves_img->ptr,
+			&data->moves_img->bits_per_pixel, &data->moves_img->line_len,
+			&data->moves_img->endian);
+	if (!data->moves_img->addr)
 		return (err_msg("mlx_get_data_addr() failed", 1), -1);
-	if (check_display_size(data, width, height) == -1)
-		return (-1);
+	data->moves_img->width = data->game_d->cols * TILE_SIZE;
+	data->moves_img->height = MOVES_TEXT_HEIGHT;
 	return (0);
 }
 
@@ -88,6 +65,8 @@ int	init_graphics(t_data *data)
 {
 	if (init_mlx(data) == -1)
 		return (err_msg("init_mlx failed", 0), -1);
+	if (load_moves_img(data) == -1)
+		return (err_msg("load_moves_img failed", 0), -1);
 	if (load_textures(data) == -1)
 		return (err_msg("load_textures failed", 0), -1);
 	return (0);

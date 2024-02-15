@@ -60,6 +60,7 @@ int	init_data(t_data *data)
 	if (init_memory(data) == -1)
 		return (-1);
 	init_img(data->img);
+	init_img(data->moves_img);
 	init_textures(data);
 	init_game_data(data->game_d);
 	return (0);

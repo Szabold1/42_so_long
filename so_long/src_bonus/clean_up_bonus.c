@@ -52,6 +52,7 @@ static void	clean_up_textures(t_data *data)
 	}
 }
 
+// free the game data (t_game_data struct) and the arrays it points to
 static void	clean_up_game_data(t_data *data)
 {
 	if (data->game_d)
@@ -71,6 +72,7 @@ static void	clean_up_game_data(t_data *data)
 	}
 }
 
+// clean up everything related to the game
 void	clean_up(t_data *data)
 {
 	if (data)
@@ -81,6 +83,11 @@ void	clean_up(t_data *data)
 		{
 			free_img(data, data->img);
 			data->img = NULL;
+		}
+		if (data->moves_img)
+		{
+			free_img(data, data->moves_img);
+			data->moves_img = NULL;
 		}
 		clean_up_textures(data);
 		clean_up_game_data(data);
