@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include_bonus/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 // get the color of a pixel from the 'img' at (x, y)
 // return the color as an unsigned int

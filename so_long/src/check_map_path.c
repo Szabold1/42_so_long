@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 // (depth-first search)
 // return 0 if there's a valid path, -1 otherwise

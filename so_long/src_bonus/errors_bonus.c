@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include_bonus/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 void	err_msg(char *msg, int show_errno)
 {

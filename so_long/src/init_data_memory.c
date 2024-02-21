@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 // allocate memory for all textures (t_img)
 // return 0 if successful, -1 otherwise

@@ -1,4 +1,16 @@
-#include "../include_bonus/so_long_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create_map_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:17:41 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:18:30 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long_bonus.h"
 
 // set 'map_str' from the map file
 // if successful, return 0, otherwise return -1

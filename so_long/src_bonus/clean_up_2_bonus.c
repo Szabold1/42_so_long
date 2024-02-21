@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include_bonus/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 // free a 2d array of strings
 void	free_array(char **array)

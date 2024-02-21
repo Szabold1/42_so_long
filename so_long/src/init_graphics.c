@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 static int	check_display_size(t_data *data, int map_width, int map_height)
 {
@@ -37,6 +37,8 @@ static int	init_mlx(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (err_msg("mlx_init() failed", 1), -1);
+	if (check_display_size(data, width, height) == -1)
+		return (-1);
 	data->win = mlx_new_window(data->mlx, width, height, "so_long");
 	if (!data->win)
 		return (err_msg("mlx_new_window() failed", 1), -1);
@@ -48,8 +50,6 @@ static int	init_mlx(t_data *data)
 			&data->img->endian);
 	if (!data->img->addr)
 		return (err_msg("mlx_get_data_addr() failed", 1), -1);
-	if (check_display_size(data, width, height) == -1)
-		return (-1);
 	return (0);
 }
 

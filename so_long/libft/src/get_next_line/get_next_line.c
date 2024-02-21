@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 // read from fd into str until there is a new line
 char	*handle_read(int fd, char *str)

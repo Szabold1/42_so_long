@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 // end the game and free all allocated memory
 // if msg is not NULL, print it before ending the game

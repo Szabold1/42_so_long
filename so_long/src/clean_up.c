@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 // free the mlx and all the resources it uses
 static void	clean_up_mlx(t_data *data)

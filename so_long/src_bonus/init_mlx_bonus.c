@@ -1,4 +1,16 @@
-#include "../include_bonus/so_long_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_mlx_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:24:20 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:24:29 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long_bonus.h"
 
 static int	check_display_size(t_data *data, int map_width, int map_height)
 {
@@ -25,6 +37,8 @@ int	init_mlx(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		return (err_msg("mlx_init() failed", 1), -1);
+	if (check_display_size(data, width, height) == -1)
+		return (-1);
 	data->win = mlx_new_window(data->mlx, width, height, "so_long");
 	if (!data->win)
 		return (err_msg("mlx_new_window() failed", 1), -1);
@@ -36,7 +50,5 @@ int	init_mlx(t_data *data)
 			&data->img->endian);
 	if (!data->img->addr)
 		return (err_msg("mlx_get_data_addr() failed", 1), -1);
-	if (check_display_size(data, width, height) == -1)
-		return (-1);
 	return (0);
 }

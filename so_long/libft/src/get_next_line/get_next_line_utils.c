@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "libft.h"
 
 // concatenate s1 and s2 into s_final
 static char	*concat_strs(char *s1, char *s2, char *s_final)

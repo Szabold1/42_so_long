@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include_bonus/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 // 1. check if number of arguments matches
 // 2. check if file extension is .ber

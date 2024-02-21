@@ -1,4 +1,16 @@
-#include "../include_bonus/so_long_bonus.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   display_moves_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bszabo <bszabo@student.42vienna.com>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/08 13:18:24 by bszabo            #+#    #+#             */
+/*   Updated: 2024/02/08 13:18:42 by bszabo           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long_bonus.h"
 
 // fill the img with a single color
 static void	fill_img_with_color(t_img *img, int color)

@@ -1,18 +1,28 @@
 # Makefile for so_long
 
+# File and Directory Management
+RM = rm -f
+LIBFT_DIR = ./libft
+LIBFT = $(LIBFT_DIR)/libft_full.a
+
+# Headers
+HEADERS_DIR = ./include
+HEADERS = $(HEADERS_DIR)/constants.h \
+			$(HEADERS_DIR)/so_long.h \
+			$(HEADERS_DIR)/structures.h
+HEADERS_DIR_BONUS = ./include_bonus
+HEADERS_BONUS = $(HEADERS_DIR_BONUS)/constants_bonus.h \
+				$(HEADERS_DIR_BONUS)/so_long_bonus.h \
+				$(HEADERS_DIR_BONUS)/structures_bonus.h
+
 # Compiler and Flags
 CC = cc
-CFLAGS = -g -Wall -Wextra -Werror -I$(LIBFT_DIR) -I/usr/X11/include
+CFLAGS = -g -Wall -Wextra -Werror -I$(LIBFT_DIR) -I/usr/X11/include -I$(HEADERS_DIR) -I$(HEADERS_DIR_BONUS)
 LFLAGS = -L$(LIBFT_DIR) -lft_full -L/usr/X11/lib -lX11 -lmlx -lXext
 
 # Target Binary
 NAME = so_long
 NAME_BONUS = so_long_bonus
-
-# File and Directory Management
-RM = rm -f
-LIBFT_DIR = ./libft
-LIBFT = $(LIBFT_DIR)/libft_full.a
 
 # Source Directories
 SRC_DIR = ./src
@@ -56,28 +66,11 @@ OBJ = $(SRC:%.c=$(SRC_DIR)/%.o)
 OBJ_BONUS = $(SRC_BONUS:%.c=$(SRC_DIR_BONUS)/%.o)
 
 # Compilation Rules
-$(SRC_DIR)/%.o: $(SRC_DIR)/%.c
+$(SRC_DIR)/%.o: $(SRC_DIR)/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-$(SRC_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c
+$(SRC_DIR_BONUS)/%.o: $(SRC_DIR_BONUS)/%.c $(HEADERS_BONUS)
 	@$(CC) $(CFLAGS) -c $< -o $@
-
-# Target Rules
-$(NAME): $(LIBFT) $(OBJ)
-	@echo "🔨 compiling $(NAME)"
-	@$(CC) $(OBJ) $(LFLAGS) -o $(NAME)
-	@echo "✅ $(NAME) compiled"
-
-$(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
-	@echo "🔨 compiling $(NAME_BONUS)"
-	@$(CC) $(OBJ_BONUS) $(LFLAGS) -o $(NAME_BONUS)
-	@echo "✅ $(NAME_BONUS) compiled"
-
-# Library Compilation
-$(LIBFT): $(LIBFT_DIR)
-	@echo "🔨 compiling libft"
-	@cd $(LIBFT_DIR) && $(MAKE) --quiet full
-	@echo "✅ libft compiled"
 
 # Phony Targets
 all: $(NAME)
@@ -98,5 +91,22 @@ re: fclean all
 bonus: $(NAME_BONUS)
 
 rebonus: fclean bonus
+
+# Target Rules
+$(NAME): $(LIBFT) $(OBJ)
+	@echo "🔨 compiling $(NAME)"
+	@$(CC) $(OBJ) $(LFLAGS) -o $(NAME)
+	@echo "✅ $(NAME) compiled"
+
+$(NAME_BONUS): $(LIBFT) $(OBJ_BONUS)
+	@echo "🔨 compiling $(NAME_BONUS)"
+	@$(CC) $(OBJ_BONUS) $(LFLAGS) -o $(NAME_BONUS)
+	@echo "✅ $(NAME_BONUS) compiled"
+
+# Library Compilation
+$(LIBFT): $(LIBFT_DIR)
+	@echo "🔨 building libft library"
+	@cd $(LIBFT_DIR) && $(MAKE) --quiet full
+	@echo "✅ libft library built"
 
 .PHONY: all clean fclean re bonus

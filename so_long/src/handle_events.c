@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 // refresh the screen by redrawing player cell and cells next to it
 static void	refresh_screen(t_data *data)

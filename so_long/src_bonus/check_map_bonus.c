@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include_bonus/so_long_bonus.h"
+#include "so_long_bonus.h"
 
 // check if the map is surrounded by walls and is rectangular
 // return 0 if all conditions are met, -1 otherwise

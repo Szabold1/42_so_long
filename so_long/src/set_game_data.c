@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/so_long.h"
+#include "so_long.h"
 
 // set the rest of the game data from the map
 // rows, cols, collectible, exit, player_start, player_curr_x, player_curr_y
