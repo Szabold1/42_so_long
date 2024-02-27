@@ -13,7 +13,7 @@
 
 ## About
 
-This project, named so_long, is a simple 2D game built with the MiniLibX library. In this game, players control a character, in this case, a monkey, navigating through a map to collect bananas and reach home while avoiding enemies (snakes). The project focuses on implementing basic game mechanics and rendering graphics using the MiniLibX library.
+This project, named `so_long`, is a simple 2D game built with the MiniLibX library. In this game, players control a character, in this case, a monkey, navigating through a map to collect bananas and reach home while avoiding enemies (snakes). The project focuses on implementing basic game mechanics and rendering graphics using the MiniLibX library.
 
 ## Features
 
@@ -27,7 +27,7 @@ This project, named so_long, is a simple 2D game built with the MiniLibX library
 
 The map file must adhere to the following rules:
 
-- The map has to be in a .ber file.
+- The map has to be in a `.ber` file.
 - The map can be composed of only these characters:
 - `0`: Empty space
 - `1`: Wall
@@ -54,7 +54,7 @@ To compile `so_long_bonus`, navigate to the `📁 so_long` folder and run `make 
 Start game:
 
 ```shell
-./so_long maps/valid/map_valid2.ber
+./so_long maps/valid/map_valid1.ber
 ```
 
 ![Game Screenshot](https://github.com/Szabold1/42_so_long/blob/main/so_long/img/game_screenshot.png)
